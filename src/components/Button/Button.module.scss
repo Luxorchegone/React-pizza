@@ -33,7 +33,7 @@
     transform: translateY(1px);
   }
 
-  &--circle {
+  &Circle {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,7 +44,7 @@
     border-width: 2px;
   }
 
-  &--black {
+  &Black {
     background-color: $black;
 
     &:hover,
@@ -53,7 +53,7 @@
     }
   }
 
-  &--outline {
+  &Butline {
     background-color: #fff;
     border-color: $orange;
     &,
@@ -87,7 +87,7 @@
     }
   }
 
-  &__delimiter {
+  &Delimiter {
     width: 1px;
     height: 25px;
     background-color: rgba(255, 255, 255, 0.25);
@@ -95,7 +95,7 @@
     margin-right: 14px;
   }
 
-  &--add {
+  &Add {
     svg {
       margin-right: 2px;
     }
@@ -129,7 +129,7 @@
     }
   }
 
-  &--cart {
+  &Cart {
     display: flex;
     align-items: center;
     line-height: 23px;
