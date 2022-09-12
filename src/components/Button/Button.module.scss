@@ -1,4 +1,5 @@
-@import '../variables';
+@import '../scss/variables.scss';
+@import '../scss/libs/normalize.scss';
 
 .button {
   display: inline-block;
@@ -53,7 +54,7 @@
     }
   }
 
-  &Butline {
+  &Outline {
     background-color: #fff;
     border-color: $orange;
     &,
