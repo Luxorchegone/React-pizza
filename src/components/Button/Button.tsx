@@ -31,7 +31,7 @@ const Button = ({
         />
       </svg>
       <span>{text}</span>
-      <i>{count}</i>
+      {count ? <i>{count}</i> : null}
     </button>
   );
 };

@@ -1,7 +1,5 @@
-@import 'variables';
+@import './variables.scss';
 @import 'libs/normalize';
-
-@import 'components/all';
 
 body {
   background-color: $background;
@@ -26,6 +24,7 @@ body {
   &__items {
     display: flex;
     flex-wrap: wrap;
+    gap: 65px 35px;
     justify-content: space-between;
   }
 

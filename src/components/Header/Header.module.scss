@@ -1,4 +1,5 @@
 @import '../scss/variables.scss';
+@import '../scss/libs/normalize.scss';
 
 .header {
   border-bottom: 1px solid $gray-line;
@@ -8,6 +9,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: $container-width;
+    margin: 0 auto;
   }
 
   &Logo {
@@ -28,5 +31,56 @@
     p {
       color: #7b7b7b;
     }
+  }
+}
+
+.button {
+  background-color: $orange;
+  border-radius: 30px;
+  padding: 10px 20px;
+  min-width: 100px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color $duration ease-in-out, border-color $duration ease-in-out;
+  border: 1px solid transparent;
+  @include noselect();
+
+  &:hover {
+    background-color: darken($orange, 8%);
+  }
+
+  &:active {
+    background-color: darken($orange, 12%);
+    transform: translateY(1px);
+  }
+
+  &,
+  span {
+    color: #fff;
+  }
+
+  &Cart {
+    display: flex;
+    align-items: center;
+    line-height: 23px;
+    padding: 12px 25px;
+
+    svg {
+      margin-right: 8px;
+      margin-bottom: 1px;
+    }
+
+    span {
+      font-weight: 600;
+      font-size: 16px;
+    }
+  }
+
+  &Delimiter {
+    width: 1px;
+    height: 25px;
+    background-color: rgba(255, 255, 255, 0.25);
+    margin-left: 14px;
+    margin-right: 14px;
   }
 }
