@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header/Header';
 import Pizza from './Pizza/Pizza';
 import Sort from './Sort/Sort';
@@ -7,6 +7,14 @@ import pizzas from '../data/pizzaDb.json';
 import './scss/app.scss';
 
 export const All = () => {
+  const [pizzas, setPizzas] = useState([]);
+
+  useEffect(() => {
+    fetch('https://63247326bb2321cba92cbed5.mockapi.io/api/v1/pizzas')
+      .then((res) => res.json())
+      .then((data) => setPizzas(data));
+  }, []);
+
   return (
     <div className='wrapper'>
       <Header count={10} summary={300} />
