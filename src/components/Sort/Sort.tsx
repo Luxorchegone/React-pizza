@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Sort.module.scss';
 // import { PizzaProps } from './Sort.props';
 
-const Sort: React.FC = ({}) => {
+const Sort: React.FC = () => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [activeSort, setActiveSort] = useState<number>(0);
+
+  const sort = ['популярности', 'цене', 'алфавиту'];
+
   return (
     <div className={styles.sort}>
       <div className={styles.sortLabel}>
@@ -18,15 +23,27 @@ const Sort: React.FC = ({}) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span onClick={() => setIsVisible(!isVisible)}>{sort[activeSort]}</span>
       </div>
-      <div className={styles.sortPopup}>
-        <ul>
-          <li className={styles.active}>популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {isVisible && (
+        <div className={styles.sortPopup}>
+          <ul>
+            {sort.map((item, i) => {
+              return (
+                <li
+                  onClick={() => {
+                    setActiveSort(i);
+                    setIsVisible(false);
+                  }}
+                  className={i === activeSort ? styles.active : ''}
+                  key={i}>
+                  {item}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
