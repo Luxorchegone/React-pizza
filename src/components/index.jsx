@@ -5,9 +5,14 @@ import Sort from './Sort/Sort';
 import Categories from './Categories/Categories';
 import pizzas from '../data/pizzaDb.json';
 import './scss/app.scss';
+import PizzaSkeleton from './PizzaSkeleton/PizzaSkeleton';
+
+const x = [...new Array(6)];
+console.log(x);
 
 export const All = () => {
   const [pizzas, setPizzas] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch('https://63247326bb2321cba92cbed5.mockapi.io/api/v1/pizzas')
@@ -26,7 +31,10 @@ export const All = () => {
           </div>
           <h2 className='content__title'>Все пиццы</h2>
           <div className='content__items'>
-            {pizzas.map((item, i) => (
+            { pizzas.length ===0 ? 
+              x.map((_,i)=> <PizzaSkeleton key={i}/>) : 
+            
+            pizzas.map((item, i) => (
               <Pizza
                 key={i}
                 name={item.name}
@@ -34,8 +42,7 @@ export const All = () => {
                 imgUrl={item.imageUrl}
                 sizes={item.sizes}
                 types={item.types}
-              />
-            ))}
+              />))}
           </div>
         </div>
       </div>
