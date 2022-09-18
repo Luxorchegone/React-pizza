@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import styles from './Button.module.scss';
 import { ButtonProps } from './Button.props';
 
-const Button = ({
+export const Button = ({
   text,
   buttonStyle,
   appearance,
@@ -35,5 +35,3 @@ const Button = ({
     </button>
   );
 };
-
-export default Button;

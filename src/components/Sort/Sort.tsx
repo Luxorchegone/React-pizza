@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Sort.module.scss';
-// import { PizzaProps } from './Sort.props';
 
-const Sort: React.FC = () => {
+export const Sort: React.FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [activeSort, setActiveSort] = useState<number>(0);
 
@@ -47,5 +46,3 @@ const Sort: React.FC = () => {
     </div>
   );
 };
-
-export default Sort;

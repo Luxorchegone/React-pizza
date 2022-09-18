@@ -3,7 +3,7 @@ import styles from './Categories.module.scss';
 import { CategoriesProps } from './Categories.props';
 import categories from '../../data/categoriesDb.json';
 
-const Categories: React.FC = () => {
+export const Categories: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   return (
@@ -25,5 +25,3 @@ const Categories: React.FC = () => {
     </div>
   );
 };
-
-export default Categories;

@@ -4,7 +4,7 @@ import { HeaderProps } from './Header.props';
 import Logo from '../assets/img/pizza-logo.svg';
 import styles from './Header.module.scss';
 
-const Header: React.FC<HeaderProps> = ({ summary, count }) => {
+export const Header: React.FC<HeaderProps> = ({ summary, count }) => {
   return (
     <div className={styles.header}>
       <div className={styles.container}>
@@ -54,5 +54,3 @@ const Header: React.FC<HeaderProps> = ({ summary, count }) => {
     </div>
   );
 };
-
-export default Header;

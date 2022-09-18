@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Button from '../Button/Button';
+import { Button } from '../Button/Button';
 import styles from './Pizza.module.scss';
 import { PizzaProps } from './Pizza.props';
 import typeNames from '../../data/pizzaTypesNameDb.json';
 
-const Pizza: React.FC<PizzaProps> = ({ name, sizes, types, imgUrl, price }) => {
+export const Pizza: React.FC<PizzaProps> = ({ name, sizes, types, imgUrl, price }) => {
   const [activeSize, setActiveSize] = useState(0);
   const [activeType, setActiveType] = useState(0);
 
@@ -49,5 +49,3 @@ const Pizza: React.FC<PizzaProps> = ({ name, sizes, types, imgUrl, price }) => {
     </div>
   );
 };
-
-export default Pizza;
