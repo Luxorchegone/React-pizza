@@ -22,10 +22,13 @@ body {
   }
 
   &__items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 65px 35px;
-    justify-content: space-between;
+    display: grid;
+    //практически идеальная сетка в одну строчку :)
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    justify-items: center;
   }
 
   &__top {
