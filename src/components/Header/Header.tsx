@@ -1,6 +1,6 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
-import clsx from 'clsx';
+import React from 'react';
 import { HeaderProps } from './Header.props';
+import { Link } from 'react-router-dom';
 import Logo from '../assets/img/pizza-logo.svg';
 import styles from './Header.module.scss';
 
@@ -8,15 +8,17 @@ export const Header: React.FC<HeaderProps> = ({ summary, count }) => {
   return (
     <div className={styles.header}>
       <div className={styles.container}>
-        <div className={styles.headerLogo}>
-          <img width='38' src={Logo} alt='Pizza logo' />
-          <div>
-            <h1>React Pizza</h1>
-            <p>самая вкусная пицца во вселенной</p>
+        <Link to='/'>
+          <div className={styles.headerLogo}>
+            <img width='38' src={Logo} alt='Pizza logo' />
+            <div>
+              <h1>React Pizza</h1>
+              <p>самая вкусная пицца во вселенной</p>
+            </div>
           </div>
-        </div>
+        </Link>
         <div className={styles.headerCart}>
-          <a href='/cart.html' className={`${styles.button} ${styles.buttonCart}`}>
+          <Link to='/cart' className={`${styles.button} ${styles.buttonCart}`}>
             <span>{summary} ₽</span>
             <div className={styles.buttonDelimiter}></div>
             <svg
@@ -48,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({ summary, count }) => {
               />
             </svg>
             <span>{count}</span>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

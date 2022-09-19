@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Categories, Header, Pizza, PizzaSkeleton, Sort } from '../components';
+import { Categories, Pizza, PizzaSkeleton, Sort } from '../components/';
 import '../scss/app.scss';
 
 const x = [...new Array(6)];
