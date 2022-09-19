@@ -1,16 +1,14 @@
 import React from 'react';
 import styles from './NotFoundBlock.module.scss';
+import NotFoindImg from './Shake.d8afa67b.png';
 
 type Props = {};
 
 const NotFoundBlock = (props: Props) => {
   return (
     <div className={styles.root}>
-      <h1>
-        <span>😕</span>
-        <br />
-        Ничего не найдено
-      </h1>
+      <img src={NotFoindImg} alt={'Ничего не найдено!'} />
+      <h1>Ничего не найдено</h1>
       <p>К сожалению данной страницы нет в нашем интернет магазине</p>
     </div>
   );
