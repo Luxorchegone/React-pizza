@@ -26,7 +26,7 @@ body {
     //практически идеальная сетка в одну строчку :)
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     grid-template-rows: repeat(2, 1fr);
-    grid-column-gap: 20px;
+    grid-column-gap: 10px;
     grid-row-gap: 20px;
     justify-items: center;
   }
