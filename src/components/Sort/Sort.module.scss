@@ -3,16 +3,22 @@
 
 .sort {
   position: relative;
+  align-self: flex-start;
+  //не лучшее решение с margin, но вариантов не много
+  margin-top: 12px;
+  @media(max-width: 1280px) {
+    align-self: center;
+  }
   &Label {
     display: flex;
     align-items: center;
-
     svg {
       margin-right: 8px;
     }
 
     b {
       margin-right: 8px;
+      flex-shrink: 0;
     }
 
     span {
