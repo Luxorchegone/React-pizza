@@ -10,11 +10,13 @@
   ul {
     display: flex;
     flex-wrap: wrap;
-    align-content: space-between;
+    justify-content: space-between;
     row-gap: 10px;
+
     @media(max-width: 960px) {
       flex-wrap: nowrap;
     }
+
     li {
       background-color: #f9f9f9;
       padding: 13px 30px;

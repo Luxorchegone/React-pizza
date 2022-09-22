@@ -11,6 +11,11 @@
     justify-content: space-between;
     width: $container-width;
     margin: 0 auto;
+
+    @media (max-width: 680px) {
+      flex-direction: column;
+      row-gap: 20px;
+    }
   }
 
   &Logo {

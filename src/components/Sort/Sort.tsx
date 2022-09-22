@@ -5,7 +5,7 @@ export const Sort: React.FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [activeSort, setActiveSort] = useState<number>(0);
 
-  const sort = ['популярности', 'цене', 'алфавиту'];
+  const sort = ['по популярности', 'по цене', 'по алфавиту'];
 
   return (
     <div className={styles.sort}>
@@ -21,7 +21,7 @@ export const Sort: React.FC = () => {
             fill='#2C2C2C'
           />
         </svg>
-        <b>Сортировка по:</b>
+        <b>Сортировка:</b>
         <span onClick={() => setIsVisible(!isVisible)}>{sort[activeSort]}</span>
       </div>
       {isVisible && (
