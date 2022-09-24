@@ -6,6 +6,7 @@
   align-self: flex-start;
   //не лучшее решение с margin, но вариантов не много
   margin-top: 12px;
+  margin-left: 20px;
   @media(max-width: 1280px) {
     align-self: center;
   }
@@ -14,17 +15,22 @@
     align-items: center;
     svg {
       margin-right: 8px;
+      flex-shrink: 0;
     }
 
     b {
       margin-right: 8px;
       flex-shrink: 0;
+      @media(max-width: 960px) {
+        display: none;
+      }
     }
 
     span {
       color: $orange;
       border-bottom: 1px dashed $orange;
       cursor: pointer;
+      flex-shrink: 0;
     }
   }
 
@@ -37,7 +43,7 @@
     border-radius: 10px;
     overflow: hidden;
     padding: 10px 0;
-    width: 160px;
+    width: 190px;
 
     ul {
       overflow: hidden;

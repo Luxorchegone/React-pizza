@@ -5,16 +5,30 @@
   border-bottom: 1px solid $gray-line;
   padding: 40px 0;
 
+  @media (max-width: 768px) {
+    padding: 15px 0;
+  }
+
   .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: $container-width;
     margin: 0 auto;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      row-gap: 15px;
+    }
   }
 
   &Logo {
     display: flex;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: center;
+    }
 
     img {
       margin-right: 15px;
@@ -26,10 +40,17 @@
       letter-spacing: 1%;
       text-transform: uppercase;
       font-weight: 800;
+
+      @media (max-width: 480px) {
+        text-align: center;
+      }
     }
 
     p {
       color: #7b7b7b;
+      @media (max-width: 480px) {
+        text-align: center;
+      }
     }
   }
 }
