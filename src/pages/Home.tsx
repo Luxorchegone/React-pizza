@@ -19,7 +19,7 @@ const Home = () => {
   }, []);
 
   return (
-    <>
+    <div className='container'>
       <div className='content__top'>
         <Categories />
         <Sort />
@@ -39,7 +39,7 @@ const Home = () => {
               />
             ))}
       </div>
-    </>
+    </div>
   );
 };
 

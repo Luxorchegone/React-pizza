@@ -10,11 +10,12 @@
   ul {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     row-gap: 10px;
 
     @media(max-width: 960px) {
       flex-wrap: nowrap;
+      justify-content: initial;
     }
 
     li {
@@ -26,6 +27,9 @@
       cursor: pointer;
       transition: background-color 0.1s ease-in-out;
       @include noselect();
+      @media (max-width: 768px) {
+        padding: 8px 20px;
+      }
 
       &:hover {
         background-color: darken(#f9f9f9, 2%);
