@@ -15,6 +15,7 @@
     display: flex;
     align-items: center;
     svg {
+      transition: transform 0.3s ease-in-out;
       flex-shrink: 0;
       margin-right: 8px;
       flex-shrink: 0;
@@ -36,6 +37,9 @@
       border-bottom: 1px dashed $orange;
       cursor: pointer;
       flex-shrink: 0;
+    }
+    .turned {
+        transform: rotate(180deg);
     }
   }
 

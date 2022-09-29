@@ -3,9 +3,7 @@ import styles from './Categories.module.scss';
 import { CategoriesProps } from './Categories.props';
 import categories from '../../data/categoriesDb.json';
 
-export const Categories: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-
+export const Categories: React.FC<CategoriesProps> = ({ categoryId, setCategoryId }) => {
   return (
     <div className={styles.categories}>
       <ul>
@@ -13,9 +11,9 @@ export const Categories: React.FC = () => {
           return (
             <li
               onClick={() => {
-                setActiveIndex(i);
+                setCategoryId(i);
               }}
-              className={i === activeIndex ? styles.active : ''}
+              className={i === categoryId ? styles.active : ''}
               key={i}>
               {item}
             </li>
