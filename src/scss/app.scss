@@ -43,11 +43,25 @@ body {
   &__items {
     display: grid;
     //практически идеальная сетка в одну строчку :)
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, minmax(280px, 1fr));
     grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 10px;
     grid-row-gap: 20px;
     justify-items: center;
+    justify-content: left;
+    
+    @media (max-width: 1400px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 1080px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 720px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
   }
 
   &__top {
