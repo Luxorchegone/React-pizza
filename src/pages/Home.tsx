@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Categories, Pizza, PizzaSkeleton, Sort } from '../components/';
+import { Pagination } from '../components/Pagination/Pagination';
 import '../scss/app.scss';
 
 const x = [...new Array(6)];
@@ -53,6 +54,7 @@ const Home = () => {
               />
             ))}
       </div>
+      <Pagination />
     </div>
   );
 };

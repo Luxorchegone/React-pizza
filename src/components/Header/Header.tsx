@@ -3,6 +3,7 @@ import { HeaderProps } from './Header.props';
 import { Link } from 'react-router-dom';
 import Logo from '../assets/img/pizza-logo.svg';
 import styles from './Header.module.scss';
+import { Search } from '../Search/Search';
 
 export const Header: React.FC<HeaderProps> = ({ summary, count }) => {
   return (
@@ -17,6 +18,7 @@ export const Header: React.FC<HeaderProps> = ({ summary, count }) => {
             </div>
           </div>
         </Link>
+        <Search />
         <div className={styles.headerCart}>
           <Link to='/cart' className={`${styles.button} ${styles.buttonCart}`}>
             <span>{summary} ₽</span>
