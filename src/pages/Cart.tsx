@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 type Props = {};
 
@@ -380,7 +381,7 @@ const Cart = (props: Props) => {
             </span>
           </div>
           <div className='cart__bottom-buttons'>
-            <a href='/' className='button button--outline button--add go-back-btn'>
+            <Link to='/' className='button button--outline button--add go-back-btn'>
               <svg
                 width='8'
                 height='14'
@@ -397,7 +398,7 @@ const Cart = (props: Props) => {
               </svg>
 
               <span>Вернуться назад</span>
-            </a>
+            </Link>
             <div className='button pay-btn'>
               <span>Оплатить сейчас</span>
             </div>
