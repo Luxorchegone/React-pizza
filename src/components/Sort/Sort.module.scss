@@ -4,6 +4,7 @@
 .sort {
   position: relative;
   align-self: flex-start;
+  margin-left: 20px;
   //не лучшее решение с margin, но вариантов не много
   margin-top: 12px;
   margin-left: 20px;
@@ -14,11 +15,16 @@
     display: flex;
     align-items: center;
     svg {
+      transition: transform 0.2s ease-in-out;
+      flex-shrink: 0;
       margin-right: 8px;
       flex-shrink: 0;
     }
 
     b {
+      @media (max-width: 960px) {
+        display: none;
+      }
       margin-right: 8px;
       flex-shrink: 0;
       @media(max-width: 960px) {
@@ -31,6 +37,9 @@
       border-bottom: 1px dashed $orange;
       cursor: pointer;
       flex-shrink: 0;
+    }
+    .turned {
+        transform: rotate(180deg);
     }
   }
 

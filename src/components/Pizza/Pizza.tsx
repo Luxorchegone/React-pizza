@@ -10,7 +10,13 @@ export const Pizza: React.FC<PizzaProps> = ({ name, sizes, types, imgUrl, price 
 
   return (
     <div className={styles.pizzaBlock}>
-      <img className={styles.pizzaBlockImage} src={imgUrl} alt='Pizza' />
+      <img
+        className={styles.pizzaBlockImage}
+        src={imgUrl}
+        alt='Pizza'
+        width={'260px'}
+        height={'260px'}
+      />
       <h4 className={styles.pizzaBlockTitle}>{name}</h4>
       <div className={styles.pizzaBlockSelector}>
         <ul>
