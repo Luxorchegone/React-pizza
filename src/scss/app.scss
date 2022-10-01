@@ -44,7 +44,7 @@ body {
     display: grid;
     //практически идеальная сетка в одну строчку :)
     grid-template-columns: repeat(4, minmax(280px, 1fr));
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: 1fr;
     grid-column-gap: 10px;
     grid-row-gap: 20px;
     justify-items: center;
@@ -61,7 +61,7 @@ body {
     @media (max-width: 720px) {
       grid-template-columns: repeat(1, 1fr);
     }
-
+    margin-bottom: 30px;
   }
 
   &__top {

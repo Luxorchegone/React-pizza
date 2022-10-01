@@ -3,7 +3,7 @@ import { Categories, Pizza, PizzaSkeleton, Sort } from '../components/';
 import { Pagination } from '../components/Pagination/Pagination';
 import '../scss/app.scss';
 
-const x = [...new Array(6)];
+const x = [...new Array(4)];
 console.log(x);
 
 const Home = () => {
@@ -12,11 +12,12 @@ const Home = () => {
   const [categoryId, setCategoryId] = useState(0);
   const [sortType, setSortType] = useState({ name: 'по популярности', sortProperty: 'rating' });
   const [descSort, setDescSort] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      `https://63247326bb2321cba92cbed5.mockapi.io/api/v1/pizzas?${
+      `https://63247326bb2321cba92cbed5.mockapi.io/api/v1/pizzas?page=${currentPage}&limit=4&${
         categoryId ? `category=${categoryId}` : ''
       }&sortBy=${sortType.sortProperty}&order=${descSort ? 'desc' : 'asc'}`,
     )
@@ -26,7 +27,7 @@ const Home = () => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType, descSort]);
+  }, [categoryId, sortType, descSort, currentPage]);
 
   return (
     <div className='container'>
@@ -54,7 +55,7 @@ const Home = () => {
               />
             ))}
       </div>
-      <Pagination />
+      <Pagination setCurrentPage={setCurrentPage} />
     </div>
   );
 };

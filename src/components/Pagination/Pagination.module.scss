@@ -2,18 +2,37 @@
 
 
 .root {
+  :global {
+    .selected {
+      a {
+        background-color: $orange;
+        color: #fff
+      }
+    }
+  }
+
   li {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border: 1px solid $orange;
-    border-radius: 30px;
-    margin-right: 10px;
+    display: inline-block;
+
     a {
       color: $orange;
       font-weight: 600;
+      line-height: 38px;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      display: inline-block;
+      border: 1px solid $orange;
+      border-radius: 30px;
+      margin-right: 10px;
+      cursor: pointer;
+      transition: background-color 0.15s ease-in-out;
+      user-select: none;
+
+      &:hover {
+        background-color: $orange;
+        color: #fff
+      }
     }
   }
 }
