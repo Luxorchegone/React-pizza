@@ -6,9 +6,6 @@ import { Routes, Route } from 'react-router-dom';
 import './scss/app.scss';
 import NotFound from './pages/NotFound';
 
-const x = [...new Array(6)];
-console.log(x);
-
 const App = () => {
   return (
     <div className='wrapper'>

@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Categories, Pizza, PizzaSkeleton, Sort } from '../components/';
 import { Pagination } from '../components/Pagination/Pagination';
+import { filterSlice } from '../redux/slices/filterSlice';
+import { RootState } from '../redux/store';
 import '../scss/app.scss';
 
 const x = [...new Array(4)];
-console.log(x);
 
 const Home = () => {
   const [pizzas, setPizzas] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [categoryId, setCategoryId] = useState(0);
   const [sortType, setSortType] = useState({ name: 'по популярности', sortProperty: 'rating' });
   const [descSort, setDescSort] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const categoryId = useSelector((state: RootState) => state.filter.categoryId);
 
   useEffect(() => {
     setIsLoading(true);
@@ -32,7 +34,7 @@ const Home = () => {
   return (
     <div className='container'>
       <div className='content__top'>
-        <Categories categoryId={categoryId} setCategoryId={setCategoryId} />
+        <Categories />
         <Sort
           sortType={sortType}
           setSortType={setSortType}
