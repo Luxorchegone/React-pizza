@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Categories, Pizza, PizzaSkeleton, Sort } from '../components/';
 import { Pagination } from '../components/Pagination/Pagination';
-import { filterSlice } from '../redux/slices/filterSlice';
 import { RootState } from '../redux/store';
 import '../scss/app.scss';
 
@@ -11,10 +10,10 @@ const x = [...new Array(4)];
 const Home = () => {
   const [pizzas, setPizzas] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [sortType, setSortType] = useState({ name: 'по популярности', sortProperty: 'rating' });
-  const [descSort, setDescSort] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const categoryId = useSelector((state: RootState) => state.filter.categoryId);
+  const sortType = useSelector((state: RootState) => state.filter.sortType);
+  const descSort = useSelector((state: RootState) => state.filter.descSort);
 
   useEffect(() => {
     setIsLoading(true);
@@ -35,12 +34,7 @@ const Home = () => {
     <div className='container'>
       <div className='content__top'>
         <Categories />
-        <Sort
-          sortType={sortType}
-          setSortType={setSortType}
-          descSort={descSort}
-          setDescSort={setDescSort}
-        />
+        <Sort />
       </div>
       <h2 className='content__title'>Все пиццы</h2>
       <div className='content__items'>

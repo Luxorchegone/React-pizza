@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import styles from './Sort.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSort, setDescSort } from '../../redux/slices/filterSlice';
+import { RootState } from '../../redux/store';
 import { SortProps } from './Sort.props';
+import styles from './Sort.module.scss';
 
-export const Sort: React.FC<SortProps> = ({ sortType, setSortType, descSort, setDescSort }) => {
+export const Sort: React.FC<SortProps> = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const sortType = useSelector((state: RootState) => state.filter.sortType);
+  const descSort = useSelector((state: RootState) => state.filter.descSort);
+  const dispatch = useDispatch();
 
   const sort = [
     { name: 'по популярности', sortProperty: 'rating' },
@@ -11,12 +17,17 @@ export const Sort: React.FC<SortProps> = ({ sortType, setSortType, descSort, set
     { name: 'по алфавиту', sortProperty: 'name' },
   ];
 
+  const onClickListItem = (item: any) => {
+    dispatch(setSort(item));
+    setIsVisible(false);
+  };
+
   return (
     <div className={styles.sort}>
       <div className={styles.sortLabel}>
         <div
           onClick={() => {
-            setDescSort(!descSort);
+            dispatch(setDescSort(!descSort));
           }}>
           <svg
             className={descSort ? styles.turned : ''}
@@ -42,8 +53,7 @@ export const Sort: React.FC<SortProps> = ({ sortType, setSortType, descSort, set
               return (
                 <li
                   onClick={() => {
-                    setSortType(item);
-                    setIsVisible(false);
+                    onClickListItem(item);
                   }}
                   className={sortType.sortProperty === item.sortProperty ? styles.active : ''}
                   key={i}>
