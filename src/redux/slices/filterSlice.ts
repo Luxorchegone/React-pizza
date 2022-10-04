@@ -7,6 +7,7 @@ const initialState = {
     sortProperty: 'rating',
   },
   descSort: true,
+  searchText: '',
 };
 
 export const filterSlice = createSlice({
@@ -22,8 +23,12 @@ export const filterSlice = createSlice({
     setDescSort: (state, action) => {
       state.descSort = action.payload;
     },
+    setSearchText: (state, action) => {
+      console.log(action.payload);
+      state.searchText = action.payload;
+    },
   },
 });
 
-export const { setCategoryId, setSort, setDescSort } = filterSlice.actions;
+export const { setCategoryId, setSort, setDescSort, setSearchText } = filterSlice.actions;
 export default filterSlice.reducer;

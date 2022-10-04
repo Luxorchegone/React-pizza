@@ -1,10 +1,33 @@
-import React, { useState } from 'react';
-import clsx from 'clsx';
+import React, { useRef, useState } from 'react';
 import styles from './Search.module.scss';
-import { SearchProps } from './Search.props';
+import debounce from 'lodash.debounce';
+import { useDispatch } from 'react-redux';
+import { setSearchText } from '../../redux/slices/filterSlice';
 
 export const Search = (): JSX.Element => {
   const [value, setValue] = useState<string>('');
+  const dispatch = useDispatch();
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const onClearInput = () => {
+    setValue('');
+    dispatch(setSearchText(''));
+    inputRef.current?.focus();
+  };
+
+  const onChangeInput = (e: string) => {
+    setValue(e);
+    debouncedValue(e);
+  };
+
+  const debouncedValue = React.useCallback(
+    debounce((value) => {
+      dispatch(setSearchText(value));
+    }, 1000),
+    [],
+  );
+
   return (
     <div className={styles.root}>
       <svg
@@ -21,17 +44,18 @@ export const Search = (): JSX.Element => {
       {value && (
         <svg
           className={styles.closeIcon}
-          onClick={() => setValue('')}
+          onClick={() => onClearInput()}
           viewBox='0 0 20 20'
           xmlns='http://www.w3.org/2000/svg'>
           <path d='M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z' />
         </svg>
       )}
       <input
+        ref={inputRef}
         placeholder='Поиск пиццы ...'
         className={styles.search}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => onChangeInput(e.target.value)}
       />
     </div>
   );
