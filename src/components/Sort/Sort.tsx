@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSort, setDescSort } from '../../redux/slices/filterSlice';
 import { RootState } from '../../redux/store';
@@ -16,14 +16,30 @@ export const Sort: React.FC<SortProps> = () => {
   const sortType = useSelector((state: RootState) => state.filter.sortType);
   const descSort = useSelector((state: RootState) => state.filter.descSort);
   const dispatch = useDispatch();
+  const sortRef = useRef(null);
 
   const onClickListItem = (item: any) => {
     dispatch(setSort(item));
     setIsVisible(false);
   };
 
+  const onClick = (event: MouseEvent) => {
+    if (sortRef.current) {
+      if (!event.composedPath().includes(sortRef.current)) {
+        setIsVisible(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    document.body.addEventListener('click', onClick, true);
+    return () => {
+      document.body.removeEventListener('click', onClick, true);
+    };
+  }, []);
+
   return (
-    <div className={styles.sort}>
+    <div ref={sortRef} className={styles.sort}>
       <div className={styles.sortLabel}>
         <div
           onClick={() => {
