@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Categories, Pizza, PizzaSkeleton, Sort, sortList } from '../components/';
 import { Pagination } from '../components/Pagination/Pagination';
@@ -21,19 +21,10 @@ const Home = () => {
   const descSort = useSelector((state: RootState) => state.filter.descSort);
   const currentPage = useSelector((state: RootState) => state.filter.currentPage);
   const dispatch = useDispatch();
+  const isSearch = useRef(false);
+  const isMounted = useRef(false);
 
-  useEffect(() => {
-    //Парсим url и передаем значения в redux
-    if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
-      console.log(params);
-      const sort = sortList.find((obj) => obj.sortProperty === params.sortBy);
-      // params.sortBy = sort;
-      dispatch(setFilters({ ...params, sort }));
-    }
-  }, []);
-
-  useEffect(() => {
+  const fetchPizzas = () => {
     setIsLoading(true);
     axios(
       `https://63247326bb2321cba92cbed5.mockapi.io/api/v1/pizzas?page=${currentPage}&limit=4&${
@@ -43,16 +34,42 @@ const Home = () => {
       setPizzas(data);
       setIsLoading(false);
     });
+  };
 
+  useEffect(() => {
+    //Если был первый рендер, то разрешаем вставлять параметры в URL
+    if (isMounted.current) {
+      //создаем строку и пушим ее в URL
+      const queryString = qs.stringify({
+        sortBy: sortType.sortProperty,
+        categoryId,
+        currentPage,
+        descSort,
+      });
+      navigate(`?${queryString}`);
+    }
+    isMounted.current = true;
+  }, [categoryId, sortType.sortProperty, descSort, currentPage]);
+
+  useEffect(() => {
+    //Парсим URL и передаем значения в redux
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+      console.log(params);
+      const sort = sortList.find((obj) => obj.sortProperty === params.sortBy);
+      // params.sortBy = sort;
+      dispatch(setFilters({ ...params, sort }));
+      isSearch.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
-    //создаем строку и пушим ее в URL
-    const queryString = qs.stringify({
-      sortBy: sortType.sortProperty,
-      categoryId,
-      currentPage,
-      descSort,
-    });
-    navigate(`?${queryString}`);
+
+    if (!isSearch.current) {
+      fetchPizzas();
+    }
+    isSearch.current = false;
   }, [categoryId, sortType.sortProperty, descSort, currentPage]);
 
   return (
