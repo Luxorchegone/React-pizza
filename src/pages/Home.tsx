@@ -1,11 +1,12 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Categories, Pizza, PizzaSkeleton, Sort } from '../components/';
+import { useDispatch, useSelector } from 'react-redux';
+import { Categories, Pizza, PizzaSkeleton, Sort, sortList } from '../components/';
 import { Pagination } from '../components/Pagination/Pagination';
 import { RootState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
+import { setFilters } from '../redux/slices/filterSlice';
 
 import '../scss/app.scss';
 
@@ -18,7 +19,19 @@ const Home = () => {
   const categoryId = useSelector((state: RootState) => state.filter.categoryId);
   const sortType = useSelector((state: RootState) => state.filter.sortType);
   const descSort = useSelector((state: RootState) => state.filter.descSort);
-  const currentPage = useSelector((state: RootState) => state.pagination.pageNumber);
+  const currentPage = useSelector((state: RootState) => state.filter.currentPage);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    //Парсим url и передаем значения в redux
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+      console.log(params);
+      const sort = sortList.find((obj) => obj.sortProperty === params.sortBy);
+      // params.sortBy = sort;
+      dispatch(setFilters({ ...params, sort }));
+    }
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
@@ -30,22 +43,17 @@ const Home = () => {
       setPizzas(data);
       setIsLoading(false);
     });
+
     window.scrollTo(0, 0);
+    //создаем строку и пушим ее в URL
     const queryString = qs.stringify({
       sortBy: sortType.sortProperty,
-      category: categoryId,
-      page: currentPage,
+      categoryId,
+      currentPage,
       descSort,
     });
     navigate(`?${queryString}`);
   }, [categoryId, sortType.sortProperty, descSort, currentPage]);
-
-  useEffect(() => {
-    if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
-      console.log(params);
-    }
-  }, []);
 
   return (
     <div className='container'>

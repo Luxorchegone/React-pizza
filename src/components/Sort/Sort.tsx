@@ -5,17 +5,17 @@ import { RootState } from '../../redux/store';
 import { SortProps } from './Sort.props';
 import styles from './Sort.module.scss';
 
+export const sortList = [
+  { name: 'по популярности', sortProperty: 'rating' },
+  { name: 'по цене', sortProperty: 'price' },
+  { name: 'по алфавиту', sortProperty: 'name' },
+];
+
 export const Sort: React.FC<SortProps> = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const sortType = useSelector((state: RootState) => state.filter.sortType);
   const descSort = useSelector((state: RootState) => state.filter.descSort);
   const dispatch = useDispatch();
-
-  const sort = [
-    { name: 'по популярности', sortProperty: 'rating' },
-    { name: 'по цене', sortProperty: 'price' },
-    { name: 'по алфавиту', sortProperty: 'name' },
-  ];
 
   const onClickListItem = (item: any) => {
     dispatch(setSort(item));
@@ -49,7 +49,7 @@ export const Sort: React.FC<SortProps> = () => {
       {isVisible && (
         <div className={styles.sortPopup}>
           <ul>
-            {sort.map((item, i) => {
+            {sortList.map((item, i) => {
               return (
                 <li
                   onClick={() => {
