@@ -69,6 +69,7 @@ const Home = () => {
     if (!isSearch.current) {
       fetchPizzas();
     }
+
     isSearch.current = false;
   }, [categoryId, sortType.sortProperty, descSort, currentPage]);
 
@@ -82,16 +83,7 @@ const Home = () => {
       <div className='content__items'>
         {isLoading
           ? x.map((_, i) => <PizzaSkeleton key={i} />)
-          : pizzas.map((item, i) => (
-              <Pizza
-                key={i}
-                name={item.name}
-                price={item.price}
-                imgUrl={item.imageUrl}
-                sizes={item.sizes}
-                types={item.types}
-              />
-            ))}
+          : pizzas.map((item, i) => <Pizza key={i} {...item} />)}
       </div>
       <Pagination />
     </div>

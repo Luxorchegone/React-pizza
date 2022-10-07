@@ -4,8 +4,12 @@ import { Link } from 'react-router-dom';
 import Logo from '../assets/img/pizza-logo.svg';
 import styles from './Header.module.scss';
 import { Search } from '../Search/Search';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
-export const Header: React.FC<HeaderProps> = ({ summary, count }) => {
+export const Header: React.FC<HeaderProps> = ({ summary }) => {
+  const { totalPizzaCount, totalPrice } = useSelector((state: RootState) => state.cart);
+
   return (
     <div className={styles.header}>
       <div className={styles.container}>
@@ -21,7 +25,7 @@ export const Header: React.FC<HeaderProps> = ({ summary, count }) => {
         <Search />
         <div className={styles.headerCart}>
           <Link to='/cart' className={`${styles.button} ${styles.buttonCart}`}>
-            <span>{summary} ₽</span>
+            <span>{totalPrice} ₽</span>
             <div className={styles.buttonDelimiter}></div>
             <svg
               width='18'
@@ -51,7 +55,7 @@ export const Header: React.FC<HeaderProps> = ({ summary, count }) => {
                 strokeLinejoin='round'
               />
             </svg>
-            <span>{count}</span>
+            <span>{totalPizzaCount}</span>
           </Link>
         </div>
       </div>

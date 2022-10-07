@@ -30,7 +30,7 @@ export const Button = ({
           fill='white'
         />
       </svg>
-      <span>{text}</span>
+      <span> {text}</span>
       {count ? <i>{count}</i> : null}
     </button>
   );

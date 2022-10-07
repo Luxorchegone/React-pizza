@@ -1,9 +1,13 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { clearCart } from '../redux/slices/cartSlice';
 
 type Props = {};
 
 const Cart = (props: Props) => {
+  const dispatch = useDispatch();
+
   return (
     <div className='container container--cart'>
       <div className='cart'>
@@ -39,7 +43,11 @@ const Cart = (props: Props) => {
             </svg>
             Корзина
           </h2>
-          <div className='cart__clear'>
+          <div
+            className='cart__clear'
+            onClick={() => {
+              dispatch(clearCart());
+            }}>
             <svg
               width='20'
               height='20'
@@ -75,7 +83,6 @@ const Cart = (props: Props) => {
                 strokeLinejoin='round'
               />
             </svg>
-
             <span>Очистить корзину</span>
           </div>
         </div>
