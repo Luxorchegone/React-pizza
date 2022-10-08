@@ -88,22 +88,22 @@ const Cart: React.FC = () => {
             <span>Очистить корзину</span>
           </div>
         </div>
-        <div>
-          {items.map((item: CartItemProps) => {
-            return (
-              <CartItem
-                key={item.id}
-                id={item.id}
-                name={item.name}
-                size={item.size}
-                type={item.type}
-                imageUrl={item.imageUrl}
-                price={item.price * item.count}
-                count={item.count}
-              />
-            );
-          })}
-        </div>
+
+        {items.map((item: CartItemProps) => {
+          return (
+            <CartItem
+              key={`${item.id}${item.size}${item.type}`}
+              id={item.id}
+              name={item.name}
+              size={item.size}
+              type={item.type}
+              imageUrl={item.imageUrl}
+              price={item.price * item.count}
+              count={item.count}
+            />
+          );
+        })}
+
         <div className='cart__bottom'>
           <div className='cart__bottom-details'>
             <span>
