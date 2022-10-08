@@ -45,6 +45,7 @@ export const cartSlice = createSlice({
     clearCart: (state) => {
       state.items = [];
       state.totalPrice = 0;
+      state.totalPizzaCount = 0;
     },
   },
 });
