@@ -85,6 +85,7 @@ export const Pizza = ({ id, name, sizes, types, imageUrl, price }) => {
           buttonStyle='outline'
           text='Добавить'
           appearance='add'
+          sign='plus'
           count={addedPizzaCount}
         />
       </div>
