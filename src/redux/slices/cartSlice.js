@@ -29,7 +29,9 @@ export const cartSlice = createSlice({
           obj.type === action.payload.type
         ) {
           return true;
-        } else return false;
+        } else {
+          return false;
+        }
       });
 
       if (findItem) {
@@ -44,7 +46,18 @@ export const cartSlice = createSlice({
     },
     //Удаляем продукт/все количество данного продукта
     removeItems: (state, action) => {
-      state.items = state.items.filter((item) => item.id !== action.payload);
+      state.items = state.items.filter((item) => {
+        if (
+          item.id !== action.payload.id ||
+          item.size !== action.payload.size ||
+          item.type !== action.payload.type
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      updateCounters(state);
     },
     //TODO дописать экшн для удаления одного продукта, но не всего количества
     removeOneItem: (state, action) => {
@@ -58,7 +71,9 @@ export const cartSlice = createSlice({
         ) {
           itemIndex = i;
           return true;
-        } else return false;
+        } else {
+          return false;
+        }
       });
       if (findItem.count > 1) {
         findItem.count--;
@@ -76,5 +91,5 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addProduct, removeItem, clearCart, removeOneItem } = cartSlice.actions;
+export const { addProduct, removeItem, clearCart, removeItems, removeOneItem } = cartSlice.actions;
 export default cartSlice.reducer;
