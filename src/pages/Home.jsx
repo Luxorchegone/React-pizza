@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Categories, Pizza, PizzaSkeleton, Sort, sortList } from '../components/';
+import { Categories, Pizza, PizzaSkeleton, Sort, sortList } from '../components';
 import { Pagination } from '../components/Pagination/Pagination';
 import { RootState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
@@ -9,38 +9,21 @@ import qs from 'qs';
 import { setFilters } from '../redux/slices/filterSlice';
 
 import '../scss/app.scss';
-import { setItems } from '../redux/slices/pizzasSlice';
+import { fetchPizzas } from '../redux/slices/pizzasSlice';
 import { PizzaProps } from '../components/Pizza/Pizza.props';
 
 const x = [...new Array(4)];
 
 const Home = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
-  const categoryId = useSelector((state: RootState) => state.filter.categoryId);
-  const sortType = useSelector((state: RootState) => state.filter.sortType);
-  const descSort = useSelector((state: RootState) => state.filter.descSort);
-  const currentPage = useSelector((state: RootState) => state.filter.currentPage);
-  const pizzas = useSelector((state: RootState) => state.pizza.items);
+  const categoryId = useSelector((state) => state.filter.categoryId);
+  const sortType = useSelector((state) => state.filter.sortType);
+  const descSort = useSelector((state) => state.filter.descSort);
+  const currentPage = useSelector((state) => state.filter.currentPage);
+  const { status, items } = useSelector((state) => state.pizza);
   const dispatch = useDispatch();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
-
-  const fetchPizzas = () => {
-    setIsLoading(true);
-    axios(
-      `https://63247326bb2321cba92cbed5.mockapi.io/api/v1/pizzas?page=${currentPage}&limit=4&${
-        categoryId ? `category=${categoryId}` : ''
-      }&sortBy=${sortType.sortProperty}&order=${descSort ? 'desc' : 'asc'}`,
-    )
-      .then(({ data }) => {
-        dispatch(setItems(data));
-      })
-      .catch((err) => console.warn(`Ошибка при получении списка пицц`, err))
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
 
   useEffect(() => {
     //Если был первый рендер, то разрешаем вставлять параметры в URL
@@ -70,13 +53,12 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-
     if (!isSearch.current) {
-      fetchPizzas();
+      dispatch(
+        fetchPizzas({ currentPage, categoryId, descSort, sortProperty: sortType.sortProperty }),
+      );
     }
-
-    isSearch.current = false;
+    window.scrollTo(0, 0);
   }, [categoryId, sortType.sortProperty, descSort, currentPage]);
 
   return (
@@ -87,9 +69,19 @@ const Home = () => {
       </div>
       <h2 className='content__title'>Все пиццы</h2>
       <div className='content__items'>
-        {isLoading
-          ? x.map((_, i) => <PizzaSkeleton key={i} />)
-          : pizzas.map((item: PizzaProps, i) => <Pizza key={i} {...item} />)}
+        {status === 'error' ? (
+          //TODO стилизация!
+          <>
+            <h2>Не удалось получить список пицц </h2>
+            <p>Попробуйте перезагрузить страницу</p>
+          </>
+        ) : (
+          <>
+            {status === 'loading'
+              ? x.map((_, i) => <PizzaSkeleton key={i} />)
+              : items.map((item, i) => <Pizza key={i} {...item} />)}
+          </>
+        )}
       </div>
       <Pagination />
     </div>
