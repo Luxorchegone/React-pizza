@@ -7,5 +7,5 @@ export interface ButtonProps
   form?: 'circle';
   appearance?: 'add' | 'cart';
   count?: number;
-  sign?: 'plus' | 'minus' | 'none';
+  icon?: 'plus' | 'minus' | 'remove' | 'none';
 }
