@@ -14,6 +14,7 @@
   &Label {
     display: flex;
     align-items: center;
+    cursor: pointer;
     svg {
       transition: transform 0.2s ease-in-out;
       flex-shrink: 0;
@@ -22,6 +23,7 @@
     }
 
     b {
+      user-select: none;
       @media (max-width: 960px) {
         display: none;
       }
@@ -33,6 +35,7 @@
     }
 
     span {
+      user-select: none;
       color: $orange;
       border-bottom: 1px dashed $orange;
       cursor: pointer;
@@ -55,6 +58,7 @@
     width: 190px;
 
     ul {
+      user-select: none;
       overflow: hidden;
       li {
         padding: 12px 20px;
