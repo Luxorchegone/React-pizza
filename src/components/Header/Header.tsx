@@ -1,7 +1,7 @@
 import React from 'react';
 import { HeaderProps } from './Header.props';
 import { Link } from 'react-router-dom';
-import Logo from '../assets/img/pizza-logo.svg';
+import Logo from '../../assets/img/pizza-logo.svg';
 import styles from './Header.module.scss';
 import { Search } from '../Search/Search';
 import { useSelector } from 'react-redux';

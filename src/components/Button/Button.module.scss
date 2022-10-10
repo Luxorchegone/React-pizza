@@ -45,6 +45,14 @@
     border-width: 2px;
   }
 
+  &Minus {
+    svg {
+      path:first-of-type {
+        display: none;
+      }
+    }
+  }
+
   &Black {
     background-color: $black;
 

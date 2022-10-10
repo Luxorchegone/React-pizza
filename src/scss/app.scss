@@ -12,10 +12,12 @@ body {
   margin: 50px auto;
   border-radius: 10px;
   max-width: 1400px;
+
   @media (max-width: 768px) {
     width: calc(100vw - 60px);
     margin-top: 30px;
   }
+
   @media (max-width: 480px) {
     width: calc(100vw - 20px);
     margin-top: 10px;
@@ -25,7 +27,7 @@ body {
 
 .content {
   padding: 40px 0;
-  
+
   @media (max-width: 768px) {
     padding: 20px 0;
   }
@@ -35,6 +37,7 @@ body {
     margin-top: 40px;
     font-weight: 800;
     font-size: 32px;
+
     @media (max-width: 768px) {
       margin: 20px;
     }
@@ -49,7 +52,7 @@ body {
     grid-row-gap: 20px;
     justify-items: center;
     justify-content: left;
-    
+
     @media (max-width: 1400px) {
       grid-template-columns: repeat(3, 1fr);
     }
@@ -61,6 +64,7 @@ body {
     @media (max-width: 720px) {
       grid-template-columns: repeat(1, 1fr);
     }
+
     margin-bottom: 30px;
   }
 
@@ -68,7 +72,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
+
     @media(max-width: 1280px) {
       flex-direction: column;
       row-gap: 8px;
@@ -83,6 +87,7 @@ body {
   &--cart {
     max-width: 820px;
     margin: 90px auto;
+
     .content__title {
       margin: 0;
     }
@@ -107,11 +112,17 @@ body {
       width: 30px;
       height: 30px;
       margin-right: 10px;
+
       path {
         stroke: $black;
         stroke-width: 1.9;
       }
     }
+  }
+
+  .button {
+    background-color: transparent;
+    border: none;
   }
 
   &__clear {
@@ -139,6 +150,7 @@ body {
           stroke: darken($color: #b6b6b6, $amount: 50);
         }
       }
+
       span {
         color: darken($color: #b6b6b6, $amount: 50);
       }
@@ -184,10 +196,19 @@ body {
     }
 
     &-count {
+
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 13%;
+
+      &-minus,
+      &-plus {
+        cursor: pointer;
+        padding-top: 2px;
+        width: 25px;
+        height: 25px;
+      }
 
       &-minus {
         svg {
@@ -198,17 +219,20 @@ body {
       }
 
       b {
+
         font-size: 22px;
       }
     }
 
     &-price {
+
       display: flex;
       align-items: center;
       justify-content: center;
       width: 33%;
 
       b {
+
         font-weight: bold;
         font-size: 22px;
         letter-spacing: 0.01em;
@@ -239,6 +263,7 @@ body {
           height: 11.5px;
           position: relative;
         }
+
         &:hover,
         &:active {
           border-color: darken($color: $gray-line, $amount: 80);
@@ -296,6 +321,7 @@ body {
 
         svg {
           margin-right: 12px;
+
           path {
             fill: transparent;
             stroke-width: 2;
