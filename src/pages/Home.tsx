@@ -9,17 +9,19 @@ import qs from 'qs';
 import { setFilters } from '../redux/slices/filterSlice';
 
 import '../scss/app.scss';
+import { setItems } from '../redux/slices/pizzasSlice';
+import { PizzaProps } from '../components/Pizza/Pizza.props';
 
 const x = [...new Array(4)];
 
 const Home = () => {
   const navigate = useNavigate();
-  const [pizzas, setPizzas] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const categoryId = useSelector((state: RootState) => state.filter.categoryId);
   const sortType = useSelector((state: RootState) => state.filter.sortType);
   const descSort = useSelector((state: RootState) => state.filter.descSort);
   const currentPage = useSelector((state: RootState) => state.filter.currentPage);
+  const pizzas = useSelector((state: RootState) => state.pizza.items);
   const dispatch = useDispatch();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
@@ -30,10 +32,14 @@ const Home = () => {
       `https://63247326bb2321cba92cbed5.mockapi.io/api/v1/pizzas?page=${currentPage}&limit=4&${
         categoryId ? `category=${categoryId}` : ''
       }&sortBy=${sortType.sortProperty}&order=${descSort ? 'desc' : 'asc'}`,
-    ).then(({ data }) => {
-      setPizzas(data);
-      setIsLoading(false);
-    });
+    )
+      .then(({ data }) => {
+        dispatch(setItems(data));
+      })
+      .catch((err) => console.warn(`Ошибка при получении списка пицц`, err))
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -83,7 +89,7 @@ const Home = () => {
       <div className='content__items'>
         {isLoading
           ? x.map((_, i) => <PizzaSkeleton key={i} />)
-          : pizzas.map((item, i) => <Pizza key={i} {...item} />)}
+          : pizzas.map((item: PizzaProps, i) => <Pizza key={i} {...item} />)}
       </div>
       <Pagination />
     </div>
