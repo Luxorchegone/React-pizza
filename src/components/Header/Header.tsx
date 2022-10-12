@@ -6,9 +6,10 @@ import styles from './Header.module.scss';
 import { Search } from '../Search/Search';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { selectCart } from '../../redux/slices/cartSlice';
 
 export const Header: React.FC<HeaderProps> = ({ summary }) => {
-  const { totalPizzaCount, totalPrice } = useSelector((state: RootState) => state.cart);
+  const { totalPizzaCount, totalPrice } = useSelector(selectCart);
 
   return (
     <div className={styles.header}>

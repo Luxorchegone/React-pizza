@@ -19,6 +19,7 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
+    //Добавляем продукт в корзину
     addProduct: (state, action) => {
       // достаем объект с пиццей, если он у нас уже есть в redux
       const findItem = state.items.find((obj) => {
@@ -44,7 +45,7 @@ export const cartSlice = createSlice({
       }
       updateCounters(state);
     },
-    //Удаляем продукт/все количество данного продукта
+    //Удаляем продукт из корзины полностью(все количество данного продукта)
     removeItems: (state, action) => {
       state.items = state.items.filter((item) => {
         if (
@@ -59,7 +60,7 @@ export const cartSlice = createSlice({
       });
       updateCounters(state);
     },
-    //TODO дописать экшн для удаления одного продукта, но не всего количества
+    //Удаляем один продукт из корзины, но не все его количество
     removeOneItem: (state, action) => {
       // достаем объект с пиццей, он у нас 100% есть, иначе обработчик с этой функцией не будет доступен в UI
       let itemIndex = 0;
@@ -90,6 +91,18 @@ export const cartSlice = createSlice({
     },
   },
 });
+
+export const selectCart = (state) => state.cart;
+
+export const selectCartItemByParam = (id, type, size) => (state) => {
+  return state.cart.items.find((obj) => {
+    if (obj.id === id && obj.type === type && obj.size === size) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+};
 
 export const { addProduct, removeItem, clearCart, removeItems, removeOneItem } = cartSlice.actions;
 export default cartSlice.reducer;

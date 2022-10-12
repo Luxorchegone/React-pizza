@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { CartItem } from '../components/CartItem/CartItem';
 import { CartItemProps } from '../components/CartItem/CartItem.props';
-import { clearCart } from '../redux/slices/cartSlice';
+import { clearCart, selectCart } from '../redux/slices/cartSlice';
 import { RootState } from '../redux/store';
 
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
-  const { totalPizzaCount, totalPrice, items } = useSelector((state: RootState) => state.cart);
+  const { totalPizzaCount, totalPrice, items } = useSelector(selectCart);
 
   return (
     <div className='container container--cart'>

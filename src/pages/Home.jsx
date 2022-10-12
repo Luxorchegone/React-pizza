@@ -6,21 +6,18 @@ import { Pagination } from '../components/Pagination/Pagination';
 import { RootState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
-import { setFilters } from '../redux/slices/filterSlice';
+import { selectFilter, setFilters } from '../redux/slices/filterSlice';
 
 import '../scss/app.scss';
-import { fetchPizzas } from '../redux/slices/pizzasSlice';
+import { fetchPizzas, selectPizza } from '../redux/slices/pizzasSlice';
 import { PizzaProps } from '../components/Pizza/Pizza.props';
 
 const x = [...new Array(4)];
 
 const Home = () => {
   const navigate = useNavigate();
-  const categoryId = useSelector((state) => state.filter.categoryId);
-  const sortType = useSelector((state) => state.filter.sortType);
-  const descSort = useSelector((state) => state.filter.descSort);
-  const currentPage = useSelector((state) => state.filter.currentPage);
-  const { status, items } = useSelector((state) => state.pizza);
+  const { sortType, descSort, categoryId, currentPage, searchText } = useSelector(selectFilter);
+  const { status, items } = useSelector(selectPizza);
   const dispatch = useDispatch();
   const isSearch = useRef(false);
   const isMounted = useRef(false);

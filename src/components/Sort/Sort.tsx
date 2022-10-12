@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSort, setDescSort } from '../../redux/slices/filterSlice';
+import { setSort, setDescSort, selectFilter } from '../../redux/slices/filterSlice';
 import { RootState } from '../../redux/store';
 import { SortProps } from './Sort.props';
 import styles from './Sort.module.scss';
@@ -13,8 +13,7 @@ export const sortList = [
 
 export const Sort: React.FC<SortProps> = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const sortType = useSelector((state: RootState) => state.filter.sortType);
-  const descSort = useSelector((state: RootState) => state.filter.descSort);
+  const { sortType, descSort } = useSelector(selectFilter);
   const dispatch = useDispatch();
   const sortRef = useRef(null);
 

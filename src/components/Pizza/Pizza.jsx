@@ -5,23 +5,14 @@ import { PizzaProps } from './Pizza.props';
 import typeNames from '../../data/pizzaTypesNameDb.json';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addProduct } from '../../redux/slices/cartSlice';
+import { addProduct, selectCartItemByParam } from '../../redux/slices/cartSlice';
 import { RootState } from '../../redux/store';
 
 export const Pizza = ({ id, name, sizes, types, imageUrl, price }) => {
   const [activeSize, setActiveSize] = useState(0);
   const [activeType, setActiveType] = useState(0);
-  const [pizzaCount, setPizzaCount] = useState(0);
   const dispatch = useDispatch();
-  const cartItem = useSelector((state) => {
-    return state.cart.items.find((obj) => {
-      if (obj.id === id && obj.type === typeNames[activeType] && obj.size === sizes[activeSize]) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-  });
+  const cartItem = useSelector(selectCartItemByParam(id, typeNames[activeType], sizes[activeSize]));
 
   const addedPizzaCount = cartItem ? cartItem.count : 0;
 
