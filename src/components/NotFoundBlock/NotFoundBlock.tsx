@@ -2,9 +2,7 @@ import React from 'react';
 import styles from './NotFoundBlock.module.scss';
 import NotFoindImg from './Shake.d8afa67b.png';
 
-type Props = {};
-
-const NotFoundBlock = (props: Props) => {
+const NotFoundBlock: React.FC = () => {
   return (
     <div className={styles.root}>
       <img src={NotFoindImg} alt={'Ничего не найдено!'} />

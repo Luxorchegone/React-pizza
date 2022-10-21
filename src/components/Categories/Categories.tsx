@@ -4,9 +4,8 @@ import { CategoriesProps } from './Categories.props';
 import categories from '../../data/categoriesDb.json';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFilter, setCategoryId } from '../../redux/slices/filterSlice';
-import { RootState } from '../../redux/store';
 
-export const Categories: React.FC<CategoriesProps> = () => {
+export const Categories: React.FC = () => {
   const dispatch = useDispatch();
   const { categoryId } = useSelector(selectFilter);
 

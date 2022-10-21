@@ -5,7 +5,12 @@ import { RootState } from '../../redux/store';
 import { SortProps } from './Sort.props';
 import styles from './Sort.module.scss';
 
-export const sortList = [
+type SortItem = {
+  name: string;
+  sortProperty: string;
+};
+
+export const sortList: SortItem[] = [
   { name: 'по популярности', sortProperty: 'rating' },
   { name: 'по цене', sortProperty: 'price' },
   { name: 'по алфавиту', sortProperty: 'name' },
@@ -15,9 +20,9 @@ export const Sort: React.FC<SortProps> = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const { sortType, descSort } = useSelector(selectFilter);
   const dispatch = useDispatch();
-  const sortRef = useRef(null);
+  const sortRef = useRef<HTMLDivElement>(null);
 
-  const onClickListItem = (item: any) => {
+  const onClickListItem = (item: SortItem) => {
     dispatch(setSort(item));
     setIsVisible(false);
   };
@@ -58,7 +63,6 @@ export const Sort: React.FC<SortProps> = () => {
           </svg>
           <b>Сортировка:</b>
         </div>
-
         <span onClick={() => setIsVisible(!isVisible)}>{sortType.name}</span>
       </div>
       {isVisible && (

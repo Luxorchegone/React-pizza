@@ -1,5 +1,5 @@
 export interface PizzaProps {
-  id: number;
+  id: string;
   name: string;
   sizes: number[];
   types: number[];

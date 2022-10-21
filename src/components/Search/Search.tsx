@@ -1,10 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import styles from './Search.module.scss';
 import debounce from 'lodash.debounce';
 import { useDispatch } from 'react-redux';
 import { setSearchText } from '../../redux/slices/filterSlice';
 
-export const Search = (): JSX.Element => {
+export const Search: React.FC = () => {
   const [value, setValue] = useState<string>('');
   const dispatch = useDispatch();
 
@@ -13,18 +13,18 @@ export const Search = (): JSX.Element => {
   const onClearInput = () => {
     setValue('');
     dispatch(setSearchText(''));
-    inputRef.current?.focus();
+    inputRef.current?.focus?.();
   };
 
-  const onChangeInput = (e: string) => {
-    setValue(e);
-    debouncedValue(e);
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    debouncedValue(e.target.value);
   };
 
-  const debouncedValue = React.useCallback(
-    debounce((value) => {
+  const debouncedValue = useCallback(
+    debounce((value: string) => {
       dispatch(setSearchText(value));
-    }, 1000),
+    }, 600),
     [],
   );
 
@@ -55,7 +55,7 @@ export const Search = (): JSX.Element => {
         placeholder='Поиск пиццы ...'
         className={styles.search}
         value={value}
-        onChange={(e) => onChangeInput(e.target.value)}
+        onChange={onChangeInput}
       />
     </div>
   );

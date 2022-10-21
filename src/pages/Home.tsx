@@ -14,7 +14,7 @@ import { PizzaProps } from '../components/Pizza/Pizza.props';
 
 const x = [...new Array(4)];
 
-const Home = () => {
+const Home: React.FC = () => {
   const navigate = useNavigate();
   const { sortType, descSort, categoryId, currentPage, searchText } = useSelector(selectFilter);
   const { status, items } = useSelector(selectPizza);
@@ -52,6 +52,7 @@ const Home = () => {
   useEffect(() => {
     if (!isSearch.current) {
       dispatch(
+        // @ts-ignore
         fetchPizzas({ currentPage, categoryId, descSort, sortProperty: sortType.sortProperty }),
       );
     }
@@ -76,7 +77,8 @@ const Home = () => {
           <>
             {status === 'loading'
               ? x.map((_, i) => <PizzaSkeleton key={i} />)
-              : items.map((item, i) => <Pizza key={i} {...item} />)}
+              : // @ts-ignore
+                items.map((item, i) => <Pizza key={i} {...item} />)}
           </>
         )}
       </div>

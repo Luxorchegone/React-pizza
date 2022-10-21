@@ -8,9 +8,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addProduct, selectCartItemByParam } from '../../redux/slices/cartSlice';
 import { RootState } from '../../redux/store';
 
-export const Pizza = ({ id, name, sizes, types, imageUrl, price }) => {
-  const [activeSize, setActiveSize] = useState(0);
-  const [activeType, setActiveType] = useState(0);
+export const Pizza: React.FC<PizzaProps> = ({ id, name, sizes, types, imageUrl, price }) => {
+  const [activeSize, setActiveSize] = useState<number>(0);
+  const [activeType, setActiveType] = useState<number>(0);
   const dispatch = useDispatch();
   const cartItem = useSelector(selectCartItemByParam(id, typeNames[activeType], sizes[activeSize]));
 
@@ -76,7 +76,7 @@ export const Pizza = ({ id, name, sizes, types, imageUrl, price }) => {
           buttonStyle='outline'
           text='Добавить'
           appearance='add'
-          sign='plus'
+          icon='plus'
           count={addedPizzaCount}
         />
       </div>
