@@ -1,27 +1,29 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 
-type CartItem = {
+export type CartItem = {
   id: string;
   name: string;
   price: number;
   imageUrl: string;
   type: string;
   size: number;
+  count: number;
 };
 
-interface CrtaSliceState {
+interface CartSliceState {
   items: CartItem[];
   totalPrice: number;
-  totalPizzaCount: 0;
+  totalPizzaCount: number;
 }
 
-const initialState = {
+const initialState: CartSliceState = {
   items: [],
   totalPrice: 0,
   totalPizzaCount: 0,
 };
 //функция для обновления общей суммы и количества пицц
-const updateCounters = (state) => {
+const updateCounters = (state: CartSliceState) => {
   state.totalPrice = state.items.reduce((sum, obj) => {
     return obj.count * obj.price + sum;
   }, 0);
@@ -35,7 +37,7 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     //Добавляем продукт в корзину
-    addProduct: (state, action) => {
+    addProduct: (state, action: PayloadAction<CartItem>) => {
       // достаем объект с пиццей, если он у нас уже есть в redux
       const findItem = state.items.find((obj) => {
         console.log(action.payload);
@@ -53,15 +55,12 @@ export const cartSlice = createSlice({
       if (findItem) {
         findItem.count++;
       } else {
-        state.items.push({
-          ...action.payload,
-          count: 1,
-        });
+        state.items.push(action.payload);
       }
       updateCounters(state);
     },
     //Удаляем продукт из корзины полностью(все количество данного продукта)
-    removeItems: (state, action) => {
+    removeItems: (state, action: PayloadAction<CartItem>) => {
       state.items = state.items.filter((item) => {
         if (
           item.id !== action.payload.id ||
@@ -76,7 +75,7 @@ export const cartSlice = createSlice({
       updateCounters(state);
     },
     //Удаляем один продукт из корзины, но не все его количество
-    removeOneItem: (state, action) => {
+    removeOneItem: (state, action: PayloadAction<CartItem>) => {
       // достаем объект с пиццей, он у нас 100% есть, иначе обработчик с этой функцией не будет доступен в UI
       let itemIndex = 0;
       const findItem = state.items.find((obj, i) => {
@@ -91,7 +90,7 @@ export const cartSlice = createSlice({
           return false;
         }
       });
-      if (findItem.count > 1) {
+      if (findItem && findItem.count > 1) {
         findItem.count--;
       } else {
         state.items.splice(itemIndex, 1);
@@ -107,11 +106,11 @@ export const cartSlice = createSlice({
   },
 });
 
-export const selectCart = (state) => state.cart;
+export const selectCart = (state: RootState) => state.cart;
 
-export const selectCartItemByParam = (id, type, size) => (state) => {
+export const selectCartItemByParam = (item: CartItem) => (state: RootState) => {
   return state.cart.items.find((obj) => {
-    if (obj.id === id && obj.type === type && obj.size === size) {
+    if (obj.id === item.id && obj.type === item.type && obj.size === item.size) {
       return true;
     } else {
       return false;
@@ -119,5 +118,5 @@ export const selectCartItemByParam = (id, type, size) => (state) => {
   });
 };
 
-export const { addProduct, removeItem, clearCart, removeItems, removeOneItem } = cartSlice.actions;
+export const { addProduct, clearCart, removeItems, removeOneItem } = cartSlice.actions;
 export default cartSlice.reducer;

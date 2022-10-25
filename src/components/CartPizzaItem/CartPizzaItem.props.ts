@@ -1,4 +1,4 @@
-export interface CartItemProps {
+export interface CartPizzaItemProps {
   id: string;
   name: string;
   size: number;

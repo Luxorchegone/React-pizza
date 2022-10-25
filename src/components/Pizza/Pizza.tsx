@@ -5,27 +5,28 @@ import { PizzaProps } from './Pizza.props';
 import typeNames from '../../data/pizzaTypesNameDb.json';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addProduct, selectCartItemByParam } from '../../redux/slices/cartSlice';
+import { addProduct, CartItem, selectCartItemByParam } from '../../redux/slices/cartSlice';
 import { RootState } from '../../redux/store';
 
 export const Pizza: React.FC<PizzaProps> = ({ id, name, sizes, types, imageUrl, price }) => {
   const [activeSize, setActiveSize] = useState<number>(0);
   const [activeType, setActiveType] = useState<number>(0);
   const dispatch = useDispatch();
-  const cartItem = useSelector(selectCartItemByParam(id, typeNames[activeType], sizes[activeSize]));
+  //Что бы не плодить лишние типы, формируем объект и используем везде где это необходимо
+  const item: CartItem = {
+    id,
+    name,
+    price,
+    imageUrl,
+    type: typeNames[activeType],
+    size: sizes[activeSize],
+    count: 1,
+  };
+  const cartItem = useSelector(selectCartItemByParam(item));
 
   const addedPizzaCount = cartItem ? cartItem.count : 0;
 
   const onClickAdd = () => {
-    const item = {
-      id,
-      name,
-      price,
-      imageUrl,
-      type: typeNames[activeType],
-      size: sizes[activeSize],
-    };
-
     dispatch(addProduct(item));
   };
 

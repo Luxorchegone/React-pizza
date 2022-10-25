@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { addProduct, removeItems, removeOneItem } from '../../redux/slices/cartSlice';
+import { addProduct, CartItem, removeItems, removeOneItem } from '../../redux/slices/cartSlice';
 import { Button } from '../Button/Button';
-import styles from './CartItem.module.scss';
-import { CartItemProps } from './CartItem.props';
+import styles from './CartPizzaItem.module.scss';
+import { CartPizzaItemProps } from './CartPizzaItem.props';
 
-export const CartItem: React.FC<CartItemProps> = ({
+export const CartPizzaItem: React.FC<CartPizzaItemProps> = ({
   id,
   imageUrl,
   name,
@@ -16,34 +16,26 @@ export const CartItem: React.FC<CartItemProps> = ({
 }) => {
   const dispatch = useDispatch();
 
+  const item: CartItem = {
+    id,
+    imageUrl,
+    name,
+    type,
+    size,
+    price,
+    count,
+  };
+
   const onClickAdd = () => {
-    dispatch(
-      addProduct({
-        id,
-        type,
-        size,
-      }),
-    );
+    dispatch(addProduct(item));
   };
 
   const onClickRemoveOne = () => {
-    dispatch(
-      removeOneItem({
-        id,
-        type,
-        size,
-      }),
-    );
+    dispatch(removeOneItem(item));
   };
 
   const onClickRemoveAll = () => {
-    dispatch(
-      removeItems({
-        id,
-        type,
-        size,
-      }),
-    );
+    dispatch(removeItems(item));
   };
 
   return (

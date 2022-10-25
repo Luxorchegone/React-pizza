@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { CartItem } from '../components/CartItem/CartItem';
-import { CartItemProps } from '../components/CartItem/CartItem.props';
+import { CartPizzaItem } from '../components/CartPizzaItem/CartPizzaItem';
+import { CartPizzaItemProps } from '../components/CartPizzaItem/CartPizzaItem.props';
 import { clearCart, selectCart } from '../redux/slices/cartSlice';
 
 const Cart: React.FC = () => {
@@ -88,9 +88,9 @@ const Cart: React.FC = () => {
           </div>
         </div>
 
-        {items.map((item: CartItemProps) => {
+        {items.map((item: CartPizzaItemProps) => {
           return (
-            <CartItem
+            <CartPizzaItem
               key={`${item.id}${item.size}${item.type}`}
               id={item.id}
               name={item.name}
