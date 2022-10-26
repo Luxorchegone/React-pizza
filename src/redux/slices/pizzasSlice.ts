@@ -24,11 +24,13 @@ const initialState: PizzaSliceState = {
 };
 
 export const fetchPizzas = createAsyncThunk(`pizza/fetchAll`, async (params, thunkAPI) => {
-  const { currentPage, categoryId, sortProperty, descSort } = params;
+  //@ts-ignore
+  const { currentPage, categoryId, sortProperty, order } = params;
+  //@ts-ignore
   const { data } = await axios(
     `https://63247326bb2321cba92cbed5.mockapi.io/api/v1/pizzas?page=${currentPage}&limit=4&${
       categoryId ? `category=${categoryId}` : ''
-    }&sortBy=${sortProperty}&order=${descSort ? 'desc' : 'asc'}`,
+    }&sortBy=${sortProperty}&order=${order}`,
   );
 
   console.log();
@@ -46,13 +48,16 @@ export const pizzasSlice = createSlice({
     },
   },
   extraReducers: {
+    //@ts-ignore
     [fetchPizzas.pending]: (state) => {
       state.status = 'loading';
     },
+    //@ts-ignore
     [fetchPizzas.fulfilled]: (state, action) => {
       state.status = 'succes';
       state.items = action.payload;
     },
+    //@ts-ignore
     [fetchPizzas.rejected]: (state) => {
       state.status = 'error';
       state.items = [];

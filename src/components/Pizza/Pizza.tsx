@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from '../Button/Button';
 import styles from './Pizza.module.scss';
 import { PizzaProps } from './Pizza.props';
@@ -6,7 +6,6 @@ import typeNames from '../../data/pizzaTypesNameDb.json';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct, CartItem, selectCartItemByParam } from '../../redux/slices/cartSlice';
-import { RootState } from '../../redux/store';
 
 export const Pizza: React.FC<PizzaProps> = ({ id, name, sizes, types, imageUrl, price }) => {
   const [activeSize, setActiveSize] = useState<number>(0);

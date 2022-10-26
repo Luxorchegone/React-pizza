@@ -9,7 +9,7 @@ type SortType = {
 interface FilterSliceState {
   categoryId: number;
   sortType: SortType;
-  descSort: boolean;
+  order: 'asc' | 'desc';
   searchText: string;
   currentPage: number;
 }
@@ -20,7 +20,7 @@ const initialState: FilterSliceState = {
     name: 'по популярности',
     sortProperty: 'rating',
   },
-  descSort: true,
+  order: 'asc',
   searchText: '',
   currentPage: 1,
 };
@@ -38,8 +38,8 @@ export const filterSlice = createSlice({
       state.sortType = action.payload;
     },
     //сохраняем флаг сортировки по убыванию
-    setDescSort: (state, action) => {
-      state.descSort = action.payload;
+    setOrder: (state, action) => {
+      state.order = action.payload;
     },
     //сохраняем текст поискового запроса
     setSearchText: (state, action) => {
@@ -55,7 +55,7 @@ export const filterSlice = createSlice({
       //сохраняем все примененые фильтры для последующей нтеграции в URL
       state.currentPage = Number(action.payload.currentPage);
       state.categoryId = Number(action.payload.categoryId);
-      state.descSort = action.payload.descSort === 'true';
+      state.order = action.payload.order;
       state.sortType = action.payload.sort;
     },
   },
@@ -63,6 +63,6 @@ export const filterSlice = createSlice({
 
 export const selectFilter = (state: RootState) => state.filter;
 
-export const { setCategoryId, setSort, setDescSort, setSearchText, setCurrentPage, setFilters } =
+export const { setCategoryId, setSort, setOrder, setSearchText, setCurrentPage, setFilters } =
   filterSlice.actions;
 export default filterSlice.reducer;

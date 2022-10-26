@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSort, setDescSort, selectFilter } from '../../redux/slices/filterSlice';
-import { RootState } from '../../redux/store';
+import { setSort, selectFilter, setOrder } from '../../redux/slices/filterSlice';
 import { SortProps } from './Sort.props';
 import styles from './Sort.module.scss';
 
@@ -18,7 +17,7 @@ export const sortList: SortItem[] = [
 
 export const Sort: React.FC<SortProps> = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const { sortType, descSort } = useSelector(selectFilter);
+  const { sortType, order } = useSelector(selectFilter);
   const dispatch = useDispatch();
   const sortRef = useRef<HTMLDivElement>(null);
 
@@ -47,10 +46,10 @@ export const Sort: React.FC<SortProps> = () => {
       <div className={styles.sortLabel}>
         <div
           onClick={() => {
-            dispatch(setDescSort(!descSort));
+            dispatch(setOrder(order === 'asc' ? 'desc' : 'asc'));
           }}>
           <svg
-            className={descSort ? styles.turned : ''}
+            className={order === 'desc' ? styles.turned : ''}
             width='10'
             height='6'
             viewBox='0 0 10 6'

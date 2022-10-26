@@ -16,7 +16,7 @@ const x = [...new Array(4)];
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
-  const { sortType, descSort, categoryId, currentPage, searchText } = useSelector(selectFilter);
+  const { sortType, order, categoryId, currentPage, searchText } = useSelector(selectFilter);
   const { status, items } = useSelector(selectPizza);
   const dispatch = useDispatch();
   const isSearch = useRef(false);
@@ -30,12 +30,12 @@ const Home: React.FC = () => {
         sortBy: sortType.sortProperty,
         categoryId,
         currentPage,
-        descSort,
+        order,
       });
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [categoryId, sortType.sortProperty, descSort, currentPage]);
+  }, [categoryId, sortType.sortProperty, order, currentPage]);
 
   useEffect(() => {
     //Парсим URL и передаем значения в redux
@@ -53,11 +53,11 @@ const Home: React.FC = () => {
     if (!isSearch.current) {
       dispatch(
         // @ts-ignore
-        fetchPizzas({ currentPage, categoryId, descSort, sortProperty: sortType.sortProperty }),
+        fetchPizzas({ currentPage, categoryId, order, sortProperty: sortType.sortProperty }),
       );
     }
     window.scrollTo(0, 0);
-  }, [categoryId, sortType.sortProperty, descSort, currentPage]);
+  }, [categoryId, sortType.sortProperty, order, currentPage]);
 
   return (
     <div className='container'>
