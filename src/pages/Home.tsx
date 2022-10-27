@@ -41,10 +41,9 @@ const Home: React.FC = () => {
     //Парсим URL и передаем значения в redux
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
-      console.log(params);
       const sort = sortList.find((obj) => obj.sortProperty === params.sortBy);
-      // params.sortBy = sort;
-      dispatch(setFilters({ ...params, sort }));
+
+      dispatch(setFilters({ ...params, sortType: sort }));
       isSearch.current = true;
     }
   }, []);

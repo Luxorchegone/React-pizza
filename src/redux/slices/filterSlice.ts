@@ -1,15 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-type SortType = {
+export type SortType = {
   name: string;
-  sortProperty: 'popular' | 'price' | 'rating';
+  sortProperty: 'name' | 'price' | 'rating';
 };
+
+export type OrderType = 'asc' | 'desc';
 
 interface FilterSliceState {
   categoryId: number;
   sortType: SortType;
-  order: 'asc' | 'desc';
+  order: OrderType;
   searchText: string;
   currentPage: number;
 }
@@ -30,33 +32,32 @@ export const filterSlice = createSlice({
   initialState,
   reducers: {
     //сохраняем тип категории
-    setCategoryId: (state, action) => {
+    setCategoryId: (state, action: PayloadAction<number>) => {
       state.categoryId = action.payload;
     },
     //сохраняем тип сортировки
-    setSort: (state, action) => {
+    setSort: (state, action: PayloadAction<SortType>) => {
       state.sortType = action.payload;
     },
     //сохраняем флаг сортировки по убыванию
-    setOrder: (state, action) => {
+    setOrder: (state, action: PayloadAction<OrderType>) => {
       state.order = action.payload;
     },
     //сохраняем текст поискового запроса
-    setSearchText: (state, action) => {
-      console.log(action.payload);
+    setSearchText: (state, action: PayloadAction<string>) => {
       state.searchText = action.payload;
     },
     //сохраняем текущую страницу
-    setCurrentPage: (state, action) => {
+    setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload;
     },
     //
-    setFilters: (state, action) => {
+    setFilters: (state, action: PayloadAction<FilterSliceState>) => {
       //сохраняем все примененые фильтры для последующей нтеграции в URL
       state.currentPage = Number(action.payload.currentPage);
       state.categoryId = Number(action.payload.categoryId);
       state.order = action.payload.order;
-      state.sortType = action.payload.sort;
+      state.sortType = action.payload.sortType;
     },
   },
 });
