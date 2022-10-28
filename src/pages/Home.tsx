@@ -42,7 +42,7 @@ const Home: React.FC = () => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
       const sort = sortList.find((obj) => obj.sortProperty === params.sortBy);
-
+      //@ts-ignore
       dispatch(setFilters({ ...params, sortType: sort }));
       isSearch.current = true;
     }

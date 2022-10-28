@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { addProduct, CartItem, removeItems, removeOneItem } from '../../redux/slices/cartSlice';
+import { addProduct, CartItemType, removeItems, removeOneItem } from '../../redux/slices/cartSlice';
 import { Button } from '../Button/Button';
 import styles from './CartPizzaItem.module.scss';
 import { CartPizzaItemProps } from './CartPizzaItem.props';
@@ -16,7 +16,7 @@ export const CartPizzaItem: React.FC<CartPizzaItemProps> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const item: CartItem = {
+  const item: CartItemType = {
     id,
     imageUrl,
     name,

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-export type CartItem = {
+export type CartItemType = {
   id: string;
   name: string;
   price: number;
@@ -12,7 +12,7 @@ export type CartItem = {
 };
 
 interface CartSliceState {
-  items: CartItem[];
+  items: CartItemType[];
   totalPrice: number;
   totalPizzaCount: number;
 }
@@ -37,7 +37,7 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     //Добавляем продукт в корзину
-    addProduct: (state, action: PayloadAction<CartItem>) => {
+    addProduct: (state, action: PayloadAction<CartItemType>) => {
       // достаем объект с пиццей, если он у нас уже есть в redux
       const findItem = state.items.find((obj) => {
         console.log(action.payload);
@@ -60,7 +60,7 @@ export const cartSlice = createSlice({
       updateCounters(state);
     },
     //Удаляем продукт из корзины полностью(все количество данного продукта)
-    removeItems: (state, action: PayloadAction<CartItem>) => {
+    removeItems: (state, action: PayloadAction<CartItemType>) => {
       state.items = state.items.filter((item) => {
         if (
           item.id !== action.payload.id ||
@@ -75,7 +75,7 @@ export const cartSlice = createSlice({
       updateCounters(state);
     },
     //Удаляем один продукт из корзины, но не все его количество
-    removeOneItem: (state, action: PayloadAction<CartItem>) => {
+    removeOneItem: (state, action: PayloadAction<CartItemType>) => {
       // достаем объект с пиццей, он у нас 100% есть, иначе обработчик с этой функцией не будет доступен в UI
       let itemIndex = 0;
       const findItem = state.items.find((obj, i) => {
@@ -108,7 +108,7 @@ export const cartSlice = createSlice({
 
 export const selectCart = (state: RootState) => state.cart;
 
-export const selectCartItemByParam = (item: CartItem) => (state: RootState) => {
+export const selectCartItemByParam = (item: CartItemType) => (state: RootState) => {
   return state.cart.items.find((obj) => {
     if (obj.id === item.id && obj.type === item.type && obj.size === item.size) {
       return true;
