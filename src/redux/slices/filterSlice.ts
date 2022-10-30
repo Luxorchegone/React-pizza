@@ -1,12 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-export type SortType = {
-  name: string;
-  sortProperty: 'name' | 'price' | 'rating';
-};
+export enum SortEnum {
+  NAME = 'name',
+  PRICE = 'price',
+  RATING = 'rating',
+}
+
+type SortNameType = 'по популярности' | 'по цене' | 'по алфавиту';
 
 export type OrderType = 'asc' | 'desc';
+
+export type SortType = {
+  name: SortNameType;
+  sortProperty: SortEnum;
+};
 
 interface FilterSliceState {
   categoryId: number;
@@ -20,7 +28,7 @@ const initialState: FilterSliceState = {
   categoryId: 0,
   sortType: {
     name: 'по популярности',
-    sortProperty: 'rating',
+    sortProperty: SortEnum.RATING,
   },
   order: 'asc',
   searchText: '',
@@ -54,10 +62,11 @@ export const filterSlice = createSlice({
     //
     setFilters: (state, action: PayloadAction<FilterSliceState>) => {
       //сохраняем все примененые фильтры для последующей нтеграции в URL
-      state.currentPage = Number(action.payload.currentPage);
-      state.categoryId = Number(action.payload.categoryId);
+      state.currentPage = action.payload.currentPage;
+      state.categoryId = action.payload.categoryId;
       state.order = action.payload.order;
       state.sortType = action.payload.sortType;
+      state.searchText = action.payload.searchText;
     },
   },
 });

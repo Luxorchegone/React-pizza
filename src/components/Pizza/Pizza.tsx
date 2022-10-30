@@ -6,6 +6,7 @@ import typeNames from '../../data/pizzaTypesNameDb.json';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct, CartItemType, selectCartItemByParam } from '../../redux/slices/cartSlice';
+import { Link } from 'react-router-dom';
 
 export const Pizza: React.FC<PizzaProps> = ({ id, name, sizes, types, imageUrl, price }) => {
   const [activeSize, setActiveSize] = useState<number>(0);
@@ -31,14 +32,16 @@ export const Pizza: React.FC<PizzaProps> = ({ id, name, sizes, types, imageUrl, 
 
   return (
     <div className={styles.pizzaBlock}>
-      <img
-        className={styles.pizzaBlockImage}
-        src={imageUrl}
-        alt='Pizza'
-        width={'260px'}
-        height={'260px'}
-      />
-      <h4 className={styles.pizzaBlockTitle}>{name}</h4>
+      <Link key={id} to={`/pizza/${id}`} title={'Перейти на страницу пиццы'}>
+        <img
+          className={styles.pizzaBlockImage}
+          src={imageUrl}
+          alt='Pizza'
+          width={'260px'}
+          height={'260px'}
+        />
+        <h4 className={styles.pizzaBlockTitle}>{name}</h4>
+      </Link>
       <div className={styles.pizzaBlockSelector}>
         <ul>
           {types.map((item, i) => {
