@@ -1,25 +1,61 @@
-import React, { useState } from 'react';
-import styles from './Sort.module.scss';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setSort,
+  selectFilter,
+  setOrder,
+  SortType,
+  SortEnum,
+} from '../../redux/slices/filterSlice';
 import { SortProps } from './Sort.props';
+import styles from './Sort.module.scss';
 
-export const Sort: React.FC<SortProps> = ({ sortType, setSortType, descSort, setDescSort }) => {
+// type SortItem = {
+//   name: string;
+//   sortProperty: SortEnum;
+// };
+
+export const sortList: SortType[] = [
+  { name: 'по популярности', sortProperty: SortEnum.RATING },
+  { name: 'по цене', sortProperty: SortEnum.PRICE },
+  { name: 'по алфавиту', sortProperty: SortEnum.NAME },
+];
+
+export const Sort: React.FC<SortProps> = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const { sortType, order } = useSelector(selectFilter);
+  const dispatch = useDispatch();
+  const sortRef = useRef<HTMLDivElement>(null);
 
-  const sort = [
-    { name: 'по популярности', sortProperty: 'rating' },
-    { name: 'по цене', sortProperty: 'price' },
-    { name: 'по алфавиту', sortProperty: 'name' },
-  ];
+  const onClickListItem = (item: SortType) => {
+    dispatch(setSort(item));
+    setIsVisible(false);
+  };
+
+  const onClick = (event: MouseEvent) => {
+    if (sortRef.current) {
+      if (!event.composedPath().includes(sortRef.current)) {
+        setIsVisible(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    document.body.addEventListener('click', onClick, true);
+    return () => {
+      document.body.removeEventListener('click', onClick, true);
+    };
+  }, []);
 
   return (
-    <div className={styles.sort}>
+    <div ref={sortRef} className={styles.sort}>
       <div className={styles.sortLabel}>
         <div
           onClick={() => {
-            setDescSort(!descSort);
+            dispatch(setOrder(order === 'asc' ? 'desc' : 'asc'));
           }}>
           <svg
-            className={descSort ? styles.turned : ''}
+            className={order === 'desc' ? styles.turned : ''}
             width='10'
             height='6'
             viewBox='0 0 10 6'
@@ -32,18 +68,16 @@ export const Sort: React.FC<SortProps> = ({ sortType, setSortType, descSort, set
           </svg>
           <b>Сортировка:</b>
         </div>
-
         <span onClick={() => setIsVisible(!isVisible)}>{sortType.name}</span>
       </div>
       {isVisible && (
         <div className={styles.sortPopup}>
           <ul>
-            {sort.map((item, i) => {
+            {sortList.map((item, i) => {
               return (
                 <li
                   onClick={() => {
-                    setSortType(item);
-                    setIsVisible(false);
+                    onClickListItem(item);
                   }}
                   className={sortType.sortProperty === item.sortProperty ? styles.active : ''}
                   key={i}>

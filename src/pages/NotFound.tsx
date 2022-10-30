@@ -3,7 +3,7 @@ import NotFoundBlock from '../components/NotFoundBlock/NotFoundBlock';
 
 type Props = {};
 
-const NotFound = (props: Props) => {
+const NotFound: React.FC = () => {
   return <NotFoundBlock />;
 };
 

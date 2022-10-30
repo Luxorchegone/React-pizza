@@ -1,7 +1,3 @@
-export interface PizzaProps {
-  name: string;
-  sizes: number[];
-  types: number[];
-  imgUrl: string;
-  price: number;
-}
+import { PizzaType } from '../../redux/slices/pizzasSlice';
+
+export interface PizzaProps extends PizzaType {}

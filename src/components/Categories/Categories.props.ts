@@ -1,4 +1,1 @@
-export interface CategoriesProps {
-  categoryId: number;
-  setCategoryId: (categoryId: number) => void;
-}
+export interface CategoriesProps {}
